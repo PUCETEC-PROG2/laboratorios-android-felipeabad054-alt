@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ec.edu.puce.githubclient.ui.components.RepoItem
 import ec.edu.puce.githubclient.viewmodels.RepoListViewModel
+import androidx.compose.material3.Text
 
 @Composable
 fun RepoList(
@@ -28,22 +29,22 @@ fun RepoList(
     Box (
         modifier= modifier
     ) {
-      if (isLoading) {
-          CircularProgressIndicator(
-              modifier = Modifier.align(Alignment.Center)
-          )
-      }
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
 
-      errMsg?.let {
-          Text(
-              text = it,
-              color = MaterialTheme.colorScheme.error,
-              modifier = Modifier
-                  .align(Alignment.Center)
-                  .padding(all = 16.dp)
-          )
-      }
-        if (!isLoading && errMsg != null) {
+        errMsg?.let {
+            Text(
+                text = it,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(all = 16.dp)
+            )
+        }
+        if (!isLoading && errMsg == null) {
             LazyColumn (
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -52,6 +53,6 @@ fun RepoList(
                 }
             }
         }
-      }
     }
 }
+
