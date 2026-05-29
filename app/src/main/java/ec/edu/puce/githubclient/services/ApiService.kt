@@ -1,7 +1,10 @@
 package ec.edu.puce.githubclient.services
 
 import ec.edu.puce.githubclient.Models.Repository
+import ec.edu.puce.githubclient.Models.RepositoryPayload
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ApiService {
@@ -14,4 +17,10 @@ interface ApiService {
         @Query("t") t: String ="${System.currentTimeMillis()}",
 
         ): List<Repository>
+    @POST (value = "/user/repos")
+    suspend fun  createRepository(
+        @Body repository: RepositoryPayload
+
+    ): Repository
+
 }

@@ -1,4 +1,4 @@
-package ec.edu.puce.myapplication
+package ec.edu.puce
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import ec.edu.puce.myapplication.RepoList
 import ec.edu.puce.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,11 +24,11 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
 
                 Scaffold(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.Companion.fillMaxSize()
                 ) { innerPadding ->
 
                     RepoList(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.Companion.padding(innerPadding)
                     )
 
                 }
