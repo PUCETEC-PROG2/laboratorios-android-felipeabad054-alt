@@ -20,8 +20,13 @@ object RetrofitClient {
 
             val request = chain.request().newBuilder()
                 .addHeader("Authorization", "Bearer $token")
+                .addHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+                .addHeader("Pragma", "no-cache")
+                .addHeader("Expires", "0")
+                .addHeader("Connection", "close")
                 .build()
             chain.proceed(request)
+
         }
         .build()
 
