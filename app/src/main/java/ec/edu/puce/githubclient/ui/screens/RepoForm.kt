@@ -1,10 +1,8 @@
 package ec.edu.puce.githubclient.ui.screens
 
-import android.widget.Space
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,10 +10,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -28,25 +28,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ec.edu.puce.githubclient.ui.theme.GithubClientTheme
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepoForm(
-    onBackClick: () -> Unit ={}
+    onBackClick: () -> Unit = {}
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Formulario de repositorio") },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Regresar",
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer
-
-                        )
-                    }
-                },
+                title = { Text(text = "Formulario as repositorio") },
+            navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Regresar",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
+            },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -56,50 +56,46 @@ fun RepoForm(
 
     ) { innerPadding ->
         Column (
-           modifier = Modifier
-               .fillMaxSize()
-               .padding(paddingValues = innerPadding)
-               .padding(horizontal = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding( paddingValues = innerPadding)
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.Center
-        ){
+        ) {
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
-                label = {Text(text = "nombre del repositorio")},
+                label = { Text(text = "nombre del repositorio") },
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-
+                singleLine = true
             )
             Spacer(modifier = Modifier.height(height = 12.dp))
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
-                label = {Text(text = "Descripcion del repositorio")},
+                label = { Text(text = "descripcion del repositorio") },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 5
             )
-            Spacer(modifier = Modifier.height(height = 12.dp))
+            Spacer(modifier = Modifier.height(height = 48.dp))
             Button(
                 onClick = {},
                 modifier = Modifier.fillMaxWidth(),
-
             ) {
                 Icon(
                     imageVector = Icons.Default.Send,
-                    contentDescription = "Guardar",
+                    contentDescription = "Guardar"
                 )
                 Spacer(modifier = Modifier.width(width = 8.dp))
                 Text(text = "Guardar")
-
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
-fun RepoFormPreviw() {
+fun RepoFormPreview() {
     GithubClientTheme () {
         RepoForm()
     }

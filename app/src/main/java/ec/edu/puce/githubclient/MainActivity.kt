@@ -9,7 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import ec.edu.puce.githubclient.ui.screens.RepoForm
-
 import ec.edu.puce.githubclient.ui.screens.RepoList
 import ec.edu.puce.githubclient.ui.theme.GithubClientTheme
 
@@ -19,19 +18,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GithubClientTheme {
-                var currentScreen by remember { mutableStateOf(value = "repoList") }
-                when (currentScreen){
-                    "repoList" -> RepoList(
-                        onNavigateToForm = {currentScreen= "repoForm"}
-                    )
-                    "repoForm" -> RepoForm(
-                        onBackClick = {currentScreen = "repoList"}
-                    )
-                }
-                    RepoList()
+                    var currentScreen by remember { mutableStateOf(value = "repoList") }
+                    when (currentScreen) {
+                        "repoList" -> RepoList (
+                            onNavigateToForm = { currentScreen = "repoForm" }
+                        )
+                        "repoForm" -> RepoForm(
+                            onBackClick = {currentScreen = "repoList" }
+                        )
+                    }
             }
         }
     }
 }
-
 

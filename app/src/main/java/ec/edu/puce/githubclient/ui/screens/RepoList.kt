@@ -1,7 +1,7 @@
 package ec.edu.puce.githubclient.ui.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,35 +26,35 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.tooling.preview.Preview
 import ec.edu.puce.githubclient.ui.theme.GithubClientTheme
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun RepoList(
     modifier: Modifier = Modifier,
     viewModel: RepoListViewModel = viewModel (),
-    onNavigateToForm:() -> Unit={}
+    onNavigateToForm: () -> Unit = {}
 ) {
     val repos by viewModel.repos.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val errMsg by viewModel.errMsg.collectAsState()
-
 
     Scaffold (
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onNavigateToForm,
                 shape = CircleShape,
-                containerColor =MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Añadir Repositorio"
+                    contentDescription = "Añadir repositorio"
                 )
             }
         }
-    ){ innerPadding->
+    ) { innerPadding ->
         Box(
             modifier = modifier
+                .fillMaxSize()
+                .padding(paddingValues = innerPadding)
         ) {
             if (isLoading) {
                 CircularProgressIndicator(
@@ -83,10 +83,11 @@ fun RepoList(
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
-fun RepoListPreview(){
-    GithubClientTheme (){
+fun RepoListPreview () {
+    GithubClientTheme () {
         RepoList()
     }
 }
