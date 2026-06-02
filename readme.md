@@ -1,7 +1,7 @@
 # Laboratorio Android. Cliente de GitHub
 
 ## Datos del estudiante
-- Jordan Castillo
+- Felipe Abad
 - Pucetec - Desarrollo de Software
 - Paralelo 2
 
