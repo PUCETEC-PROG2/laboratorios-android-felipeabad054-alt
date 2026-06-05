@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +25,9 @@ import ec.edu.puce.githubclient.ui.theme.GithubClientTheme
 
 @Composable
 fun RepoItem (
-    repository: Repository
+    repository: Repository,
+    onEdit: (Repository) -> Unit,
+    onDelete: (Repository) -> Unit
 ) {
     Card (
         modifier = Modifier
@@ -68,6 +71,30 @@ fun RepoItem (
                         style = MaterialTheme.typography.labelSmall,
                     )
                 }
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row {
+
+                    Button(
+                        onClick = {
+                            onEdit(repository)
+                        }
+                    ) {
+                        Text("Editar")
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Button(
+                        onClick = {
+                            onDelete(repository)
+                        }
+                    ) {
+                        Text("Eliminar")
+                    }
+
+                }
+
             }
         }
     }
@@ -88,6 +115,10 @@ fun RepoItemPreview () {
                 avatarUrl = "https://avatars.githubusercontent.com/u/48026030?v=4"
             )
         )
-        RepoItem(repository)
+        RepoItem(
+            repository = repository,
+            onEdit = {},
+            onDelete = {}
+        )
     }
 }

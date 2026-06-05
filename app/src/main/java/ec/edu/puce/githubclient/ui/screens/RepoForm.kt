@@ -10,13 +10,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.materialIcon
+
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -32,11 +32,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.LineHeightStyle
+
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImagePainter
+
+import ec.edu.puce.githubclient.Models.Repository
 import ec.edu.puce.githubclient.ui.theme.GithubClientTheme
 import ec.edu.puce.githubclient.viewmodels.RepoFormViewModel
 
@@ -44,16 +45,33 @@ import ec.edu.puce.githubclient.viewmodels.RepoFormViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepoForm(
+    repository: Repository? = null,
+
     onBackClick: () -> Unit = {},
+
     onSaveSuccess: () -> Unit = {},
-    viewModel: RepoFormViewModel = viewModel ()
+
+    onUpdateRepository: (
+        owner: String,
+        repo: String,
+        newName: String,
+        newDescription: String
+    ) -> Unit = { _, _, _, _ -> },
+
+    viewModel: RepoFormViewModel = viewModel()
 ) {
     val isLoading by viewModel.isLoading.collectAsState()
     val isSuccess by viewModel.isSuccess.collectAsState()
     val errMsg by viewModel.errMsg.collectAsState()
 
-    var name by remember { mutableStateOf(value = "") }
-    var description by remember { mutableStateOf(value = "") }
+
+    var name by remember {
+        mutableStateOf(repository?.name ?: "")
+    }
+
+    var description by remember {
+        mutableStateOf(repository?.description ?: "")
+    }
 
     LaunchedEffect(key1 = isSuccess) {
         if(isSuccess) {
@@ -66,7 +84,13 @@ fun RepoForm(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Formulario as repositorio") },
+                title = { Text(
+                    text =
+                        if (repository == null)
+                            "Crear repositorio"
+                        else
+                            "Editar repositorio"
+                ) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -124,7 +148,29 @@ fun RepoForm(
 
                 Spacer(modifier = Modifier.height(height = 48.dp))
                 Button(
-                    onClick = { viewModel.createRepository(name, description) },
+                    onClick = {
+
+                        if (repository == null) {
+
+                            viewModel.createRepository(
+                                name,
+                                description
+                            )
+
+                        } else {
+
+                            onUpdateRepository(
+                                repository.owner.login,
+                                repository.name,
+                                name,
+                                description
+                            )
+
+                            onSaveSuccess()
+
+                        }
+
+                    },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Icon(
@@ -132,7 +178,13 @@ fun RepoForm(
                         contentDescription = "Guardar"
                     )
                     Spacer(modifier = Modifier.width(width = 8.dp))
-                    Text(text = "Guardar")
+                    Text(
+                        text =
+                            if (repository == null)
+                                "Guardar"
+                            else
+                                "Actualizar"
+                    )
                 }
             }
         }

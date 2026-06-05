@@ -3,7 +3,7 @@
 ## Datos del estudiante
 - Felipe Abad
 - Pucetec - Desarrollo de Software
-- Paralelo 2
+- Paralelo 4
 
 ## Descripción del Proyecto
 Este proyecto es una serie de laboratorios para estudiantes donde se implementará una aplicación Android que funciona como cliente de GitHub utilizando Jetpack Compose. La aplicación evoluciona progresivamente desde una UI estática hasta una integración completa con la API REST de GitHub.
