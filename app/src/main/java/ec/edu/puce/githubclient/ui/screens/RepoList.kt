@@ -45,6 +45,9 @@ fun RepoList(
     var showDeleteDialog by remember {
         mutableStateOf(false)
     }
+    var showEditForm by remember {
+        mutableStateOf(false)
+    }
 
     var selectedRepo by remember {
         mutableStateOf<Repository?>(null)
@@ -97,8 +100,10 @@ fun RepoList(
 
                             onEdit = {
 
-                            },
+                                selectedRepo = it
+                                showEditForm = true
 
+                            },
                             onDelete = {
 
                                 selectedRepo = it
@@ -160,6 +165,78 @@ fun RepoList(
                             Text("Cancelar")
 
                         }
+
+                    }
+
+                )
+                if (showEditForm && selectedRepo != null) {
+
+                    RepoForm(
+
+                        repository = selectedRepo,
+
+                        onBackClick = {
+                            showEditForm = false
+                        },
+
+                        onSaveSuccess = {
+
+                            showEditForm = false
+
+                            viewModel.fetchRepos()
+
+                        },
+
+                        onUpdateRepository = {
+                                owner,
+                                repo,
+                                newName,
+                                newDescription ->
+
+                            viewModel.updateRepository(
+                                owner,
+                                repo,
+                                newName,
+                                newDescription
+                            )
+
+                        }
+
+                    )
+
+                }
+
+            }
+            if (showEditForm && selectedRepo != null) {
+
+                RepoForm(
+
+                    repository = selectedRepo,
+
+                    onBackClick = {
+                        showEditForm = false
+                    },
+
+                    onSaveSuccess = {
+
+                        showEditForm = false
+
+                        viewModel.fetchRepos()
+
+                    },
+
+                    onUpdateRepository = {
+                            owner,
+                            repo,
+                            newName,
+                            newDescription ->
+
+                        viewModel.updateRepository(
+                            owner,
+                            repo,
+                            newName,
+                            newDescription
+                        )
 
                     }
 

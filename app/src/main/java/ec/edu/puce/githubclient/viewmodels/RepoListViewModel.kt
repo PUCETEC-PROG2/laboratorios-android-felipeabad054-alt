@@ -2,7 +2,7 @@ package ec.edu.puce.githubclient.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
+
 import ec.edu.puce.githubclient.Models.Repository
 import ec.edu.puce.githubclient.Models.UpdateRepositoryPayload
 import ec.edu.puce.githubclient.services.RetrofitClient
